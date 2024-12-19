@@ -1,0 +1,128 @@
+.product-card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.product-card-btn i {
+    font-size: 20px;
+    animation: pulse 0.7s infinite;
+    /* Áp dụng hiệu ứng */
+}
+
+.product-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    border-bottom: 2px solid #f1f1f1;
+}
+
+.product-card-body {
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.product-card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.product-card-price {
+    font-size: 1.2rem;
+    color: #2a9d8f;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.product-card-original-price {
+    font-size: 1rem;
+    color: #999;
+    text-decoration: line-through;
+    margin-bottom: 5px;
+}
+
+.product-card-discount {
+    font-size: 1.1rem;
+    color: #e76f51;
+    font-weight: 600;
+}
+
+.product-card-btn {
+    background-color: #2a9d8f;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.product-card-btn:hover {
+    background-color: #21867a;
+}
+
+.product-card-description {
+    max-height: 0;
+    /* Ẩn phần mô tả ban đầu */
+    opacity: 0;
+    /* Mờ đi phần mô tả ban đầu */
+    font-size: 1rem;
+    color: #666;
+    margin-top: 10px;
+    overflow: hidden;
+    /* Ẩn phần nội dung vượt quá khi mô tả bị ẩn */
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    /* Thêm hiệu ứng mượt mà */
+}
+
+.product-card:hover .product-card-description {
+    max-height: 200px;
+    /* Cho phép dãn ra khi hover */
+    opacity: 1;
+    /* Hiển thị mô tả */
+    transition: all 0.5s ease-in-out;
+    /* Hiệu ứng mượt */
+}
+
+.product-card-description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    /* Hiển thị tối đa 3 dòng */
+    overflow: hidden;
+    /* Ẩn nội dung vượt quá */
+    text-overflow: ellipsis;
+    /* Thêm ba chấm khi có nội dung bị cắt */
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1) rotate(0deg);
+        /* Đặt trạng thái ban đầu */
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2) rotate(10deg);
+        /* Phóng to và xoay nhẹ */
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1) rotate(-10deg);
+        /* Quay ngược lại và thu lại kích thước */
+        opacity: 1;
+    }
+}

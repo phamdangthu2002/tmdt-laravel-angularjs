@@ -1,0 +1,214 @@
+.header {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header .navbar-brand {
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.header .navbar-nav .nav-link {
+    font-size: 1.1rem;
+    color: #555;
+    padding: 0.7rem 1rem;
+    transition: all 0.3s;
+}
+
+.header .navbar-nav .nav-link:hover {
+    color: #f0f0f0;
+    background-color: #007bff;
+    border-radius: 0.3rem;
+}
+
+/* Tạo kiểu tìm kiếm mới */
+.header .input-group {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 5px;
+}
+
+.header .form-control {
+    border: none;
+    border-radius: 25px;
+    padding: 0.5rem;
+    width: 300px !important;
+}
+
+.header .btn-search {
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -1.5rem;  /* Đẩy nút tìm kiếm vào bên trong */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.header .btn-search:hover {
+    background-color: #218838;
+}
+
+.header .btn-search i {
+    font-size: 1.3rem;
+}
+
+
+.header .cart-icon {
+    font-size: 1.8rem;
+    color: #007bff;
+    transition: transform 0.3s;
+}
+
+.header .cart-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Main dropdown menu */
+.dropdown-menu-custom {
+    display: none;
+    position: absolute;
+    width: 200px;
+    top: 100%;
+    left: 135px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    z-index: 1000;
+    opacity: 0;
+    /* Bắt đầu với opacity 0 */
+    transform: translateY(-10px);
+    /* Hiệu ứng slide */
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.dropdown-menu-user-custom {
+    display: none;
+    position: absolute;
+    width: 200px;
+    top: 100%;
+    right: -70px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    z-index: 1000;
+    opacity: 0;
+    /* Bắt đầu với opacity 0 */
+    transform: translateY(-10px);
+    /* Hiệu ứng slide */
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.nav-item.position-relative:hover .dropdown-menu-custom {
+    display: block;
+    opacity: 1;
+    /* Hiển thị với opacity 1 */
+    transform: translateY(0);
+    /* Vị trí ban đầu */
+}
+
+.nav-item.position-relative:hover .dropdown-menu-user-custom {
+    display: block;
+    opacity: 1;
+    /* Hiển thị với opacity 1 */
+    transform: translateY(0);
+    /* Vị trí ban đầu */
+}
+
+.dropdown-menu-custom a {
+    color: #555;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu-user-custom a {
+    color: #555;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu-custom a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.dropdown-menu-user-custom a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Submenu */
+.submenu {
+    display: none;
+    position: absolute;
+    top: -15px;
+    left: 100%;
+    /* Đảm bảo submenu nằm bên phải menu cha */
+    width: 200px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    z-index: 2000;
+    opacity: 0;
+    /* Bắt đầu với opacity 0 */
+    transform: translateX(-10px);
+    /* Hiệu ứng slide ngang */
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.dropdown-menu-custom .position-relative:hover .submenu {
+    display: block;
+    opacity: 1;
+    /* Hiển thị với opacity 1 */
+    transform: translateX(0);
+    /* Vị trí ban đầu */
+}
+
+
+
+
+
+
+/* Ẩn menu dropdown mặc định */
+.dropdown-menu {
+    display: none;
+    margin-top: 10px;
+    transition: opacity 0.3s ease-in-out;
+    /* Thêm hiệu ứng mờ dần */
+}
+
+/* Khi hover vào dropdown, hiện menu */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+}
+
+/* Hiệu ứng hover cho các mục trong menu */
+.dropdown-item {
+    padding: 10px 15px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+/* Thêm hiệu ứng khi hover vào mục */
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
