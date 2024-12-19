@@ -86,7 +86,7 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <!-- Main Product Image -->
-                                <img ng-src="@{{ sanphamDetail.images[0].image_path }}" alt="Product Image" class="product-image-main"
+                                <img ng-src="@{{ images[0].image_path }}" alt="Product Image" class="product-image-main"
                                     id="mainImage">
                             </div>
                             <div class="col-md-2">
@@ -100,42 +100,42 @@
                     </div>
 
                     <div class="col-md-6 product-details">
-                        <h4 id="productName" class="text-black" style="font-weight: 600">@{{ sanphamDetail.name }}</h4>
+                        <h4 id="productName" class="text-black" style="font-weight: 600">@{{ sanphamDetail[0].name }}</h4>
                         <p id="productPrice" class="text-muted">
-                            <del id="originalPrice" style="font-size: 12px" ng-if="sanphamDetail.discount != 0">
-                                @{{ sanphamDetail.price | number }} VND
+                            <del id="originalPrice" style="font-size: 12px" ng-if="sanphamDetail[0].discount != 0">
+                                @{{ sanphamDetail[0].price | number }} VND
                             </del>
                             <span id="salePrice" class="text-success" style="font-weight: 600; font-size: 20px"
-                                ng-if="sanphamDetail.discount != 0">
-                                @{{ sanphamDetail.discount | number }} VND
+                                ng-if="sanphamDetail[0].discount != 0">
+                                @{{ sanphamDetail[0].discount | number }} VND
                             </span>
                             <span id="salePrice" class="text-success" style="font-weight: 600; font-size: 20px"
-                                ng-if="sanphamDetail.discount == 0">
-                                @{{ sanphamDetail.price | number }} VND
+                                ng-if="sanphamDetail[0].discount == 0">
+                                @{{ sanphamDetail[0].price | number }} VND
                             </span>
                         </p>
                         <p id="productTag" class="bx bx-purchase-tag-alt badge bg-warning text-dark text-center"
-                            style="font-weight: 600" ng-if="sanphamDetail.discount != 0">
+                            style="font-weight: 600" ng-if="sanphamDetail[0].discount != 0">
                             Giảm @{{ discountPercentage }}%
                         </p>
-                        <p class="product-description">@{{ sanphamDetail.description }}</p>
+                        <p class="product-description">@{{ sanphamDetail[0].description }}</p>
                         <!-- Sử dụng ng-init để gán giá trị user_id từ server -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mt-3">
-                                    <div class="btn btn-warning">RAM: @{{ sanphamDetail.attributes[0].ram }}</div>
+                                    <div class="btn btn-warning">RAM: @{{ sanphamDetail[0].attributes[0].ram}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mt-3">
-                                    <div class="btn btn-warning">ROM: @{{ sanphamDetail.attributes[0].rom }}</div>
+                                    <div class="btn btn-warning">ROM: @{{ sanphamDetail[0].attributes[0].rom }}</div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mt-3">
-                                    <div class="btn btn-warning">Màu: @{{ sanphamDetail.attributes[0].color }}</div>
+                                    <div class="btn btn-warning">Màu: @{{ sanphamDetail[0].attributes[0].color }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -316,20 +316,18 @@
 @section('angular')
     <script>
         app.controller('ctrlSanphamDetail', function($scope, $http) {
-            $scope.sanphamDetail = {};
+            $scope.sanphamDetail = [];
             $scope.images = {};
             var user_id = {!! json_encode(optional(getLoggedInUser())->id) !!} ?? null;
             $scope.discountPercentage = 0; // Biến để lưu phần trăm giảm giá
             var currentUrl = window.location.href; // Lấy URL hiện tại
             var product_id = currentUrl.split('/').pop(); // Lấy phần cuối của URL
-            console.log('Product ID:', product_id);
 
             const getAllProductID = async function() {
                 try {
                     const response = await $http.get(`/api/san-pham/get-sanpham-id/${product_id}`);
-                    $scope.sanphamDetail = response.data.sanpham[0];
-                    $scope.images = response.data.sanpham[0].images;
-                    console.log($scope.images);
+                    $scope.sanphamDetail = response.data.sanphams;
+                    $scope.images = response.data.sanphams[0].images;
                     // Truy cập sản phẩm đầu tiên trong mảng
 
                     // Tính phần trăm giảm giá
@@ -342,7 +340,9 @@
                     }
 
                     $scope.$applyAsync();
-                    console.log($scope.sanphamDetail); // Log to check product details
+                    console.log('detail', $scope.sanphamDetail); // Log to check product details
+                    console.log('image', $scope.images);
+
                     console.log('Discount Percentage:', $scope
                         .discountPercentage); // Log phần trăm giảm giá
                 } catch (error) {
@@ -351,8 +351,7 @@
             }
             $scope.addToCart = async function(id) {
                 var selectedPrice = $scope.sanphamDetail.discount != 0 ? $scope.sanphamDetail.discount :
-                    $scope
-                    .sanphamDetail.price;
+                    $scope.sanphamDetail.price;
                 $scope.cart = {
                     user_id: user_id,
                     product_id: id,

@@ -122,6 +122,8 @@
                     console.log(error);
                 }
             }
+
+            
             getCountCart();
             fetchDanhMuc();
         });

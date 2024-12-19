@@ -221,10 +221,10 @@
                     <div class="dropdown-menu-custom">
                         <!-- Danh mục cấp 1 -->
                         <div ng-repeat="danhmuc in danhmuc_hierarchy" class="position-relative">
-                            <a href="#">@{{ danhmuc.name }}</a>
+                            <a href="/user/danh-muc/@{{danhmuc.id}}">@{{ danhmuc.name }}</a>
                             <!-- Danh mục cấp 2 -->
                             <div class="submenu" ng-if="danhmuc.children.length">
-                                <a ng-repeat="subdanhmuc in danhmuc.children" href="#">@{{ subdanhmuc.name }}</a>
+                                <a ng-repeat="subdanhmuc in danhmuc.children" href="/user/danh-muc/submenu/@{{subdanhmuc.id}}">@{{ subdanhmuc.name }}</a>
                             </div>
                         </div>
                     </div>
@@ -260,7 +260,7 @@
                             </div>
                             <!-- Cài đặt -->
                             <div class="position-relative">
-                                <a href="/user/don-hang"><i class="bx bx-cog"></i> Cài đặt</a>
+                                <a href="/user/don-hang"><i class="bx bx-cog"></i> Đơn hàng</a>
                             </div>
                             <!-- Đăng xuất -->
                             <div class="position-relative">

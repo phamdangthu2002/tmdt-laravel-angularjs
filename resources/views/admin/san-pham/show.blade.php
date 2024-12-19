@@ -188,6 +188,9 @@
                                             <option value="white">Trắng</option>
                                             <option value="pink">Hồng</option>
                                             <option value="titansamac">Titan Sa mạc</option>
+                                            <option value="vang">Vàng</option>
+                                            <option value="xanhngoc">Xanh ngọc</option>
+                                            <option value="tim">Tím</option>
                                         </select>
                                         <div class="text-danger" ng-if="errors.color">
                                             @{{ errors.color[0] }}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\page\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -38,6 +39,20 @@ class UserController extends Controller
     {
         return view('user.don-hang.index', [
             'title' => 'Đơn hàng'
+        ]);
+    }
+
+    public function danhMuc(Request $request, $id)
+    {
+        return view('user.danh-muc.index', [
+            'title' => 'Danh mục',
+        ]);
+    }
+
+    public function danhMucSub($id)
+    {
+        return view('user.danh-muc.index', [
+            'title' => 'Danh mục',
         ]);
     }
 }

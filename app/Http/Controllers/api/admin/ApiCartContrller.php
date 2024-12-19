@@ -103,6 +103,7 @@ class ApiCartContrller extends Controller
                 product_attributes.rom, 
                 product_attributes.color, 
                 products.name AS product_name, 
+                products.id AS product_id, 
                 products.price AS product_price, 
                 products.discount, 
                 product_images.image_path AS product_image
@@ -190,5 +191,74 @@ class ApiCartContrller extends Controller
             ]);
         }
     }
+
+    public function updateQuantity(Request $request)
+    {
+        try {
+            // Lấy id sản phẩm và số lượng mới từ request
+            $product_id = $request->input('id');
+            $quantity = $request->input('quantity');
+            $user_id = auth()->id(); // Giả sử người dùng đã đăng nhập, lấy ID người dùng
+
+            // Tìm sản phẩm trong giỏ hàng của người dùng với trạng thái 'active'
+            $carts = Cart::where('user_id', $user_id)
+                ->where('product_id', $product_id)
+                ->where('status', 'active')
+                ->first();
+
+            // Kiểm tra nếu sản phẩm có trong giỏ hàng
+            if ($carts) {
+                // Cập nhật số lượng trong giỏ hàng
+                $carts->update(['quantity' => $quantity]);
+
+                return response()->json([
+                    'message' => 'Cập nhật số lượng thành công',
+                    'status' => 200
+                ]);
+            } else {
+                return response()->json([
+                    'message' => 'Sản phẩm không tồn tại trong giỏ hàng',
+                    'status' => 404
+                ]);
+            }
+        } catch (Exception $e) {
+            // Nếu có lỗi xảy ra
+            return response()->json([
+                'message' => 'Đã xảy ra lỗi. Vui lòng thử lại!',
+                'status' => 500
+            ]);
+        }
+    }
+    public function deleteCart($id)
+    {
+        $user_id = auth()->id(); // Giả sử người dùng đã đăng nhập, lấy ID người dùng
+        try {
+            // Tìm giỏ hàng của sản phẩm
+            $cart = Cart::where('product_id', $id)->where('user_id', $user_id)->where('status', 'active')->first();
+
+            // Kiểm tra nếu không tìm thấy sản phẩm trong giỏ hàng
+            if (!$cart) {
+                return response()->json([
+                    'message' => 'Sản phẩm không tồn tại trong giỏ hàng.',
+                    'status' => 404
+                ]);
+            }
+
+            // Xóa sản phẩm khỏi giỏ hàng
+            $cart->delete();
+
+            return response()->json([
+                'message' => 'Xóa thành công',
+                'status' => 200
+            ]);
+        } catch (Exception $e) {
+            // Xử lý lỗi
+            return response()->json([
+                'message' => 'Đã xảy ra lỗi. Vui lòng thử lại!',
+                'status' => 500
+            ]);
+        }
+    }
+
 
 }

@@ -350,8 +350,7 @@ class ApiSanphamController extends Controller
             ->delete();
         return response()->json(['message' => 'Xóa ảnh thành công'], 200);
     }
-
-    /**
+    /*
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)

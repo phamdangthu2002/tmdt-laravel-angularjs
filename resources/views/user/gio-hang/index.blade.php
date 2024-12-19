@@ -86,21 +86,21 @@
                                             @{{ cart.color }}</p>
                                     </div>
                                     <div class="col-md-2 col-6 d-flex mt-2 mt-md-0">
-                                        <button class="btn btn-quantity px-2">
+                                        <button class="btn btn-quantity px-2" ng-click="tru(cart.product_id)">
                                             <i class="fas fa-minus">-</i>
                                         </button>
                                         <input min="0" name="quantity" type="number" ng-model="cart.quantity"
                                             class="form-control form-control-sm mx-2 text-center" style="width: 60px;" />
-                                        <button class="btn btn-quantity px-2">
+                                        <button class="btn btn-quantity px-2" ng-click="cong(cart.product_id)">
                                             <i class="fas fa-plus">+</i>
                                         </button>
                                     </div>
-
                                     <div class="col-12 col-md-3 text-center mt-2 mt-md-0">
                                         <h6 class="mb-0 fw-bold">@{{ cart.price | number }} VND</h6>
                                     </div>
                                     <div class="col-md-1 col-3 text-end">
-                                        <a href="#" class="btn btn-outline-danger"><i class="bx bx-trash"></i></a>
+                                        <a ng-click="deleteCart(cart.product_id)" class="btn btn-outline-danger"><i
+                                                class="bx bx-trash"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -243,6 +243,99 @@
                     });
                 }
             };
+            // Hàm giảm số lượng
+            $scope.tru = function(id) {
+                const cart = $scope.carts.find(c => c.product_id === id); // Tìm sản phẩm theo ID
+                if (cart) {
+                    if (cart.quantity > 1) {
+                        cart.quantity -= 1;
+                        updateQuantity(id, cart.quantity); // Gọi hàm cập nhật
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Giá trị tối thiểu',
+                            text: 'Số lượng không thể nhỏ hơn 1!',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            };
+
+            // Hàm tăng số lượng
+            $scope.cong = function(id) {
+                const cart = $scope.carts.find(c => c.product_id === id); // Tìm sản phẩm theo ID
+                if (cart) {
+                    if (cart.quantity < 10) {
+                        cart.quantity += 1;
+                        updateQuantity(id, cart.quantity); // Gọi hàm cập nhật
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Giá trị tối đa',
+                            text: 'Số lượng không thể lớn hơn 10!',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            };
+            // Hàm cập nhật số lượng
+            function updateQuantity(id, quantity) {
+                $http.post('/api/cart/update/quantity', {
+                        id: id,
+                        quantity: quantity
+                    })
+                    .then(function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Cập nhật thành công',
+                            text: 'Số lượng sản phẩm đã được cập nhật!',
+                            confirmButtonText: 'OK'
+                        });
+                        getCart();
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi cập nhật',
+                            text: 'Không thể cập nhật số lượng sản phẩm. Vui lòng thử lại!',
+                            confirmButtonText: 'OK'
+                        });
+                    });
+            }
+            $scope.deleteCart = async function(id) {
+                Swal.fire({
+                    title: 'Xóa sản phẩm',
+                    text: 'Bạn có chắc chắn muốn xóa sản phẩm này?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa',
+                }).then((result) => {
+                    if (result) {
+                        $http.delete('/api/cart/delete/' + id)
+                            .then(function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Xóa thành công',
+                                    text: 'Sản phẩm đã được xóa khỏi giỏ hàng!',
+                                    confirmButtonText: 'OK'
+                                });
+                                getCart();
+                            })
+                            .catch(function(error) {
+                                console.error(error);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi xóa',
+                                    text: 'Không thể xóa sản phẩm. Vui lòng thử lại!',
+                                    confirmButtonText: 'OK'
+                                });
+                            });
+                    }
+                });
+            }
         });
     </script>
 @endsection

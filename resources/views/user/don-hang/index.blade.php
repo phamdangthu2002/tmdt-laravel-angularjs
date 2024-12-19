@@ -23,10 +23,17 @@
                                 <td>@{{ donhang.id }}</td>
                                 <td>@{{ donhang.created_at }}</td>
                                 <td>
-                                    <span class="badge bg-success"><i class="bi bi-check-circle"></i>@{{ donhang.status }}
+                                    <span class="badge text-dark" ng-if="donhang.status === 'pending'">
+                                        <i class="bi bi-check-circle"></i>@{{ donhang.status }}
+                                    </span>
+                                    <span class="badge text-success" ng-if="donhang.status === 'completed'">
+                                        <i class="bi bi-check-circle"></i>@{{ donhang.status }}
+                                    </span>
+                                    <span class="badge text-danger" ng-if="donhang.status === 'cancelled'">
+                                        <i class="bi bi-check-circle"></i>@{{ donhang.status }}
                                     </span>
                                 </td>
-                                <td>@{{ donhang.total_amount |number}} VND</td>
+                                <td>@{{ donhang.total_amount | number }} VND</td>
                                 <td>
                                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#orderModal" ng-click="open(donhang.id)">Xem chi tiết</button>
