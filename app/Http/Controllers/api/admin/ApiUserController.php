@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,6 +20,50 @@ class ApiUserController extends Controller
         $users = DB::table('users')->paginate(5);
         return response()->json(['users' => $users]);
     }
+
+
+    public function profile($id)
+    {
+        $user = DB::table('users')->where('id', $id)->first();
+        return response()->json(['user' => $user]);
+    }
+
+    public function updateUser(Request $request)
+    {
+        // Lấy thông tin từ request
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $password = $request->input('password_new'); // Mật khẩu mới
+        $phone = $request->input('phone');
+        $address = $request->input('address');
+        $id = $request->input('id');
+
+        // Tìm người dùng theo ID
+        $user = User::find($id);
+
+        if (!$user) {
+            // Nếu không tìm thấy người dùng, trả về lỗi
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // Nếu mật khẩu mới được gửi, mã hóa và cập nhật mật khẩu
+        if ($password) {
+            $user->password = bcrypt($password);  // Mã hóa mật khẩu mới
+        }
+
+        // Cập nhật các thông tin khác nếu có thay đổi
+        $user->name = $name;
+        $user->email = $email;
+        $user->phone = $phone;
+        $user->address = $address;
+
+        // Lưu thay đổi vào cơ sở dữ liệu
+        $user->save();
+
+        // Trả về thông tin người dùng đã cập nhật
+        return response()->json(['user' => $user], 200);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -122,7 +167,8 @@ class ApiUserController extends Controller
             }
 
             // Cập nhật người dùng
-            DB::update('UPDATE users SET name = ?, email = ?, phone = ?, address = ?, role = ?, password = ?, status = ?, updated_at = ? WHERE id = ?',
+            DB::update(
+                'UPDATE users SET name = ?, email = ?, phone = ?, address = ?, role = ?, password = ?, status = ?, updated_at = ? WHERE id = ?',
                 [
                     $request->input('name'),
                     $request->input('email'),

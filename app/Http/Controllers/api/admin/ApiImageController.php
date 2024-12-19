@@ -31,10 +31,12 @@ class ApiImageController extends Controller
 
     public function danhMucSub($id)
     {
-        // Lấy tất cả danh mục con của danh mục cha có parent_id = $id
-        $sanphams = DB::table('products')->where('category_id', $id)->with('images')->paginate(8);
+        // Lấy tất cả sản phẩm thuộc danh mục có ID là $id và kèm theo hình ảnh
+        $sanphams = Product::where('category_id', $id) // Sử dụng mô hình Product
+            ->with('images') // Lấy thông tin hình ảnh
+            ->paginate(8); // Phân trang
 
-        // Trả về danh mục con kèm theo phân trang
+        // Trả về danh mục con với sản phẩm và hình ảnh kèm theo
         return response()->json(['sanphams' => $sanphams], 200);
     }
 

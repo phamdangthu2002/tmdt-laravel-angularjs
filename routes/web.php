@@ -26,9 +26,10 @@ Route::prefix('user')->group(function () {
     Route::get('/san-pham-detail/{id}', [UserController::class, 'sanPhamDetail'])->name('user.sanPhamDetail');
     Route::get('/tim-kiem/{key}', [UserController::class, 'timKiem']);
     Route::get('/gio-hang', [UserController::class, 'gioHang']);
-    Route::get('/don-hang',[UserController::class,'donHang']);
-    Route::get('/danh-muc/{id}',[UserController::class,'danhMuc']);
-    Route::get('/danh-muc/submenu/{id}',[UserController::class,'danhMucSub']);
+    Route::get('/don-hang', [UserController::class, 'donHang']);
+    Route::get('/danh-muc/{id}', [UserController::class, 'danhMuc']);
+    Route::get('/danh-muc/submenu/{id}', [UserController::class, 'danhMucSub']);
+    Route::get('/profile', [UserController::class, 'profile']);
 });
 
 Route::prefix('admin')->middleware('auth')->group(function () {

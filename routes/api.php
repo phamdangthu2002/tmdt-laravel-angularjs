@@ -26,6 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 //user
 Route::resource('user', ApiUserController::class);
+Route::get('/user/profile/{id}', [ApiUserController::class, 'profile']);
+Route::post('/user/profile/update', [ApiUserController::class, 'updateUser']);
 
 //danh muc
 Route::resource('danh-muc', ApiDanhmucController::class);//->middleware('auth:sanctum');

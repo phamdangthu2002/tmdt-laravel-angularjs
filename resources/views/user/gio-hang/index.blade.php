@@ -220,7 +220,7 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // Chuyển hướng nếu cần
-                                window.location.href = '/cart'; // Hoặc trang khác
+                                window.location.href = '/'; // Hoặc trang khác
                             }
                         });
                     } else {

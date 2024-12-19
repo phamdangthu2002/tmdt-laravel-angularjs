@@ -55,4 +55,11 @@ class UserController extends Controller
             'title' => 'Danh mục',
         ]);
     }
+
+    public function profile()
+    {
+        return view('user.profile.index', [
+            'title' => 'Profile'
+        ]);
+    }
 }

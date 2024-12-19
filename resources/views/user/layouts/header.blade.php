@@ -256,7 +256,7 @@
                             </div>
                             <!-- Hồ sơ -->
                             <div class="position-relative">
-                                <a href="#"><i class="bx bx-user"></i> Hồ sơ</a>
+                                <a href="/user/profile"><i class="bx bx-user"></i> Hồ sơ</a>
                             </div>
                             <!-- Cài đặt -->
                             <div class="position-relative">
