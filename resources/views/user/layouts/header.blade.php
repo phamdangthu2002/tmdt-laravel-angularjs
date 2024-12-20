@@ -221,10 +221,11 @@
                     <div class="dropdown-menu-custom">
                         <!-- Danh mục cấp 1 -->
                         <div ng-repeat="danhmuc in danhmuc_hierarchy" class="position-relative">
-                            <a href="/user/danh-muc/@{{danhmuc.id}}">@{{ danhmuc.name }}</a>
+                            <a href="/user/danh-muc/@{{ danhmuc.id }}">@{{ danhmuc.name }}</a>
                             <!-- Danh mục cấp 2 -->
                             <div class="submenu" ng-if="danhmuc.children.length">
-                                <a ng-repeat="subdanhmuc in danhmuc.children" href="/user/danh-muc/submenu/@{{subdanhmuc.id}}">@{{ subdanhmuc.name }}</a>
+                                <a ng-repeat="subdanhmuc in danhmuc.children"
+                                    href="/user/danh-muc/submenu/@{{ subdanhmuc.id }}">@{{ subdanhmuc.name }}</a>
                             </div>
                         </div>
                     </div>
@@ -306,7 +307,7 @@
                 <p>@{{ cart.price }}</p>
                 <p>Số lượng: @{{ cart.quantity }}</p>
             </div>
-            <a class="btn btn-outline-danger bx bx-trash"></a>
+            <a ng-click="deleteCart(cart.product_id)" class="btn btn-outline-danger"><i class="bx bx-trash"></i></a>
         </div>
     </div>
     <div class="cart-total">

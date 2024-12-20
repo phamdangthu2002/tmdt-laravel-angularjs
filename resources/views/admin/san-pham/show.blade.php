@@ -191,6 +191,7 @@
                                             <option value="vang">Vàng</option>
                                             <option value="xanhngoc">Xanh ngọc</option>
                                             <option value="tim">Tím</option>
+                                            <option value="Xám">Xám</option>
                                         </select>
                                         <div class="text-danger" ng-if="errors.color">
                                             @{{ errors.color[0] }}

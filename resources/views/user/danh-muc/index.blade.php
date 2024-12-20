@@ -48,14 +48,15 @@
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
                 <li class="page-item" ng-class="{ disabled: pagination.current_page === 1 }">
-                    <a class="page-link" href="#" ng-click="changePage(pagination.current_page - 1)">Trước</a>
+                    <a class="page-link" ng-click="changePage(pagination.current_page - 1)"
+                        style="cursor: pointer">Trước</a>
                 </li>
                 <li class="page-item" ng-class="{ active: n === pagination.current_page }"
                     ng-repeat="n in paginationRange() track by $index">
-                    <a class="page-link" href="#" ng-click="changePage(n)">@{{ n }}</a>
+                    <a class="page-link" ng-click="changePage(n)" style="cursor: pointer">@{{ n }}</a>
                 </li>
                 <li class="page-item" ng-class="{ disabled: pagination.current_page === pagination.last_page }"> <a
-                        class="page-link" href="#" ng-click="changePage(pagination.current_page + 1)">Sau</a>
+                        class="page-link" ng-click="changePage(pagination.current_page + 1)" style="cursor: pointer">Sau</a>
                 </li>
             </ul>
         </nav>
@@ -167,7 +168,7 @@
                     if (page === '...' || page < 1 || page > $scope.pagination.last_page) {
                         return;
                     }
-                    getProductsByCategory(page); // Load products for the selected page
+                    getProductsByCategory(categoryId, page); // Load products for the selected page
                 };
             }
 
@@ -252,7 +253,7 @@
                     if (page === '...' || page < 1 || page > $scope.pagination.last_page) {
                         return;
                     }
-                    getProductsBySubcategory(page); // Load products for the selected page
+                    getProductsBySubcategory(subcategoryId, page); // Load products for the selected page
                 };
             }
         });

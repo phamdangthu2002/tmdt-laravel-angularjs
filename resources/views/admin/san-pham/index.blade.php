@@ -142,13 +142,14 @@
                                 <div class="mb-3">
                                     <label for="color" class="form-label">Màu sắc</label>
                                     <select class="form-select" name="color" id="color" ng-model="sanpham.color">
-                                        <option value="black">Đen</option>
-                                        <option value="white">Trắng</option>
-                                        <option value="pink">Hồng</option>
-                                        <option value="titansamac">Titan Sa mạc</option>
-                                        <option value="vang">Vàng</option>
-                                        <option value="xanhngoc">Xanh ngọc</option>
-                                        <option value="tim">Tím</option>
+                                        <option value="Đen">Đen</option>
+                                        <option value="Trắng">Trắng</option>
+                                        <option value="Hồng">Hồng</option>
+                                        <option value="Titan Sa mạc">Titan Sa mạc</option>
+                                        <option value="Vàng">Vàng</option>
+                                        <option value="Xanh ngọc">Xanh ngọc</option>
+                                        <option value="Tím">Tím</option>
+                                        <option value="Xám">Xám</option>
                                     </select>
                                     <div class="text-danger" ng-if="errors.color">
                                         @{{ errors.color[0] }}

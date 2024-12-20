@@ -123,7 +123,7 @@
                 }
             }
 
-            
+
             getCountCart();
             fetchDanhMuc();
         });
@@ -140,6 +140,40 @@
                 } catch (error) {
                     console.log(error);
                 }
+            }
+
+            $scope.deleteCart = async function(id) {
+                Swal.fire({
+                    title: 'Xóa sản phẩm',
+                    text: 'Bạn có chắc chắn muốn xóa sản phẩm này?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa',
+                }).then((result) => {
+                    if (result) {
+                        $http.delete('/api/cart/delete/' + id)
+                            .then(function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Xóa thành công',
+                                    text: 'Sản phẩm đã được xóa khỏi giỏ hàng!',
+                                    confirmButtonText: 'OK'
+                                });
+                                getCart();
+                            })
+                            .catch(function(error) {
+                                console.error(error);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi xóa',
+                                    text: 'Không thể xóa sản phẩm. Vui lòng thử lại!',
+                                    confirmButtonText: 'OK'
+                                });
+                            });
+                    }
+                });
             }
             getCart();
         });
